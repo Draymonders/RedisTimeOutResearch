@@ -1,0 +1,19 @@
+server:
+  port: 8080
+spring:
+  redis:
+    database: 0
+    host: ${REDIS_HOST:127.0.0.1}
+    port: ${REDIS_PORT:6379}
+    lettuce:
+      pool:
+        max-active: 300
+        max-wait: -1
+        max-idle: 100
+        min-idle: 10
+    timeout: 3000
+system:
+  taskExecutor:
+    corePoolSize: 300
+    maxPoolSize: 1000
+    queueCapacity: 500

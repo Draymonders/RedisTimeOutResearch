@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration monitorInterval="5">
+  <Properties>
+    <Property name="LOG_PATTERN"
+      value="%date{yy-MM-dd HH:mm:ss.SSS} %-5level [%15.15thread] %-40.40c{1.} : %msg%n"/>
+  </Properties>
+
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="${LOG_PATTERN}"/>
+    </Console>
+
+  </Appenders>
+</Configuration>
