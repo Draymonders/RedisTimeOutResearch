@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.BoundListOperations;
 import org.springframework.data.redis.core.BoundSetOperations;
 import org.springframework.data.redis.core.BoundZSetOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -24,6 +25,8 @@ public class RedisController {
   private RedisTemplate redisTemplate;
 
   BoundZSetOperations<String, Object> millsZSetOps;
+
+  BoundListOperations<String, Object> millsListOps;
 
   @PostConstruct
   void init() {
@@ -65,6 +68,21 @@ public class RedisController {
       return "ok";
     } catch (Exception e) {
       log.error("set id: " + id + " and ts: " + currentTime + " error, errMsg: ", e);
+    }
+    return "error";
+  }
+
+  @GetMapping("/add")
+  @ResponseBody
+  public String addZSet() {
+    long currentTime = System.currentTimeMillis();
+    try {
+      millsZSetOps.add(currentTime, currentTime);
+      Set<Object> objects = millsZSetOps.rangeByScore(currentTime - 2000, currentTime);
+      redisTemplate.boundValueOps("zsetSize").increment(objects.size());
+      return "ok";
+    } catch (Exception e) {
+      log.error("add ts: " + currentTime + " error, errMsg: ", e);
     }
     return "error";
   }

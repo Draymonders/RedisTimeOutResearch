@@ -12,13 +12,13 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@EnableScheduling
+//@EnableScheduling
 public class GarbageCollector {
 
   @Autowired
   private RedisTemplate<String, Object> redisTemplate;
 
-  @Scheduled(fixedRate = 5 * 60 * 1000)
+//  @Scheduled(fixedRate = 5 * 60 * 1000)
   public void collectGarbage() {
     long currentTime = System.currentTimeMillis();
     Set<Object> objects = redisTemplate.boundZSetOps(RedisService.MILLS_KEY)

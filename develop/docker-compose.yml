@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  redis:
+    image: redis:6.0.7
+    restart: always
+    container_name: redis
+    ports:
+      - 12300:6379
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - /root/yubing/redis-data/:/data/
+      - /root/yubing/redis-6.0.7.conf:/usr/local/etc/redis/redis.conf
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/timezone
+
+  sturnus-redis-app:
+    image: sturnus
+    ports:
+      - 8080:8080
+    container_name: sturnus-redis-app
+    network_mode: host
+    environment:
+      - REDIS_HOST=xxx
+      - REDIS_PORT=12300
+    depends_on:
+      - redis
