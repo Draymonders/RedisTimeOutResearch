@@ -141,6 +141,8 @@ blade create docker network delay --time 1 --interface eth0 --local-port 6379 --
  
 销毁时延后，发送请求，仅仅需要 8ms 到 12ms, 怀疑这个blade无法精确控制时延
 ```
+- 图1.1 ![图1.1](./imgs/img1.png)
+- 图1.2 ![图1.2](./imgs/img2.png)
 
 - 网络丢包实验
 ``` 
@@ -151,7 +153,7 @@ blade create docker network loss --interface eth0 --percent 80 --container-id 3c
 ```
 
 
-- cpu打满实验
+- <del> cpu打满实验 </del>
 ```
 blade create docker cpu fullload --cpu-percent 100 --container-id 3c331867f63f
 
