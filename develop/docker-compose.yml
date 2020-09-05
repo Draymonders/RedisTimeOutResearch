@@ -6,7 +6,7 @@ services:
     restart: always
     container_name: redis
     ports:
-      - 12300:6379
+      - 6379:6379
     command: redis-server /usr/local/etc/redis/redis.conf
     volumes:
       - /root/yubing/redis-data/:/data/
@@ -21,7 +21,21 @@ services:
     container_name: sturnus-redis-app
     network_mode: host
     environment:
-      - REDIS_HOST=xxx
-      - REDIS_PORT=12300
+      - REDIS_HOST="xxx"
+      - REDIS_PORT=6379
     depends_on:
       - redis
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - '3000:3000'
+    environment:
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_BASIC_ENABLED=false
+      - GF_ENABLE_GZIP=true
+      - GF_INSTALL_PLUGINS=redis-datasource
+    volumes:
+      - ./provisioning/datasources:/etc/grafana/provisioning/datasources
