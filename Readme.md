@@ -2,10 +2,10 @@
 redis time out 调研
 
 # 打包并且打镜像
+以下均在`RedisTimeOutResearch`目录下执行
 - `cd sturnus && mvn clean package -DskipTests=true`
-- `docker build --build-arg JAR_FILE=sturnus-v0.1.jar -t sturnus .`
-- 将`develop/docker-compose.yml`里的`REDIS_HOST`替换为您的服务器ip
-- `docker-compose up -f develop/docker-compose.yml -d`
+- `cd sturnus && docker build --build-arg JAR_FILE=sturnus-v0.1.jar -t sturnus .`
+- `cd develop && docker-compose up -f develop/docker-compose.yml -d`
 
 # 问题进展
 线上用的redis，在压力大的会出现`RedisTimeOut`的异常，但我们的系统要求高可用 && 高性能嘛，就想着尽量避免这种情况，现在也做了本地cache，但是还是会有`RedisTimeOut`的问题存在。

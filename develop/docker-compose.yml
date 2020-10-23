@@ -5,6 +5,7 @@ services:
     image: redis:6.0.7
     restart: always
     container_name: redis
+    network_mode: host
     ports:
       - 6379:6379
     command: redis-server /usr/local/etc/redis/redis.conf
@@ -14,14 +15,14 @@ services:
       - /etc/localtime:/etc/localtime
       - /etc/timezone:/etc/timezone
 
-  sturnus-redis-app:
+  sturnus-app:
     image: sturnus
     ports:
       - 8080:8080
-    container_name: sturnus-redis-app
+    container_name: sturnus
     network_mode: host
     environment:
-      - REDIS_HOST="xxx"
+      - REDIS_HOST=127.0.0.1
       - REDIS_PORT=6379
     depends_on:
       - redis
