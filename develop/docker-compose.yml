@@ -5,7 +5,6 @@ services:
     image: redis:6.0.7
     restart: always
     container_name: redis
-    network_mode: host
     ports:
       - 6379:6379
     command: redis-server /usr/local/etc/redis/redis.conf
@@ -20,9 +19,8 @@ services:
     ports:
       - 8080:8080
     container_name: sturnus
-    network_mode: host
     environment:
-      - REDIS_HOST=127.0.0.1
+      - REDIS_HOST=${redis_ip}
       - REDIS_PORT=6379
     depends_on:
       - redis

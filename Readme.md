@@ -5,6 +5,7 @@ redis time out 调研
 以下均在`RedisTimeOutResearch`目录下执行
 - `cd sturnus && mvn clean package -DskipTests=true`
 - `cd sturnus && docker build --build-arg JAR_FILE=sturnus-v0.1.jar -t sturnus .`
+- 修改 `develop/docker-compose.yml`里面的`${redis_ip}`为您的本机ip
 - `cd develop && docker-compose up -f develop/docker-compose.yml -d`
 
 # 问题进展
